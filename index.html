@@ -3,74 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UwU</title>
+  <title>Letter-by-Letter Animation with Star Sparkles</title>
   <style>
-    *::selection{
-      color: rgb(176, 9, 9);
-      background-color: #ffcbcb
+    .container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .text-container {
+      font-size: 40px;
+      font-weight: bold;
+      color: #ffc908;
+      text-align: center;
+      white-space: nowrap; /* Prevent wrapping */
+      overflow: hidden;
+      display: inline-block;
+      animation: typing 6s steps(20, end), blink 0.5s step-end infinite alternate;
+      position: relative; /* Necessary to position sparkles relative to this */
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 30%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: transparent;
+      transform: rotate(45deg);
+      animation: sparkle-animation 1.5s ease-out infinite;
+    }
+
+    .sparkle::before,
+    .sparkle::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #ffd700; /* Golden star color */
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    .sparkle::after {
+      transform: translateY(-50%) rotate(90deg);
+    }
+
+    @keyframes sparkle-animation {
+      from {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: translate(calc(-20px + 40px * random()), calc(-20px + 40px * random())) scale(1.5);
+      }
     }
   </style>
 </head>
-<body>
-  <body style="background-image: url(kiss.gif);background-position: center;">
-    <h1 style="font: italic; font-size: 50px; color: #a6ff00; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;text-align: center;" >
-      womp womp
-    </h1>
-      
-    <style>
-      a:link {
-       color: #ffcbcb;
-       background-color: transparent;
-       text-decoration: none;
-      }
-      a:visited {
-       color: rgb(251, 255, 0);
-       background-color: transparent;
-       text-decoration: none;
-      }
-      a:hover {
-       color: rgb(210, 255, 167);
-       background-color: transparent;
-       text-decoration: underline;
-      }
-      a:active {
-       color: rgb(145, 99, 183);
-       background-color: transparent;
-       text-decoration: underline;
-      }
-    
-      .cent{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 25%;
-      }
-      </style>
-    
-    <button style="background-color:#403d39; color: #d6a2ad; font-weight:800;" class="cent" onclick="document.getElementById('pookie').innerHTML='HELLO POOKIE'" >
-      Hellooo!
-    </button>
-    
-    <p style="color: #ffcbcb; font-size: 25px;" class="cent" id="pookie"> 
-      ///UwU///
-    </p>
-    </body>
+<body style="background-color: #252422; color: white; text-align: center;">
 
-    <button style="background-color: #ff9a16; color: #0c1ee8; font-weight: 800; border: 0; height: 100px; border-radius: 20px;" class="cent" onclick="document.getElementById('pookie').innerHTML='BYE POOKIE'">bye</button>
-    <br>
-    <br>
-    
-    <a href="https://www.youtube.com/watch?v=iaVImhkveU8" target="_blank" class="cent">
-      Trust Me :P
-    </a>
-    <br>
-    
-    <a href="C:\Users\Sruthy\Downloads\WLOP-Ghost-Blade-anime-girls-umbrella-1867989-wallhere.com.jpg" target="_self" class="cent">Sruthy</a>
-    <br>
-    
-    <a href="https://matias.me/nsfw/">
-        <img src="hi.jpg" style="width: 400px; height: 400px; border-radius: 50%; border: 20px solid #9dff00b4;" class="cent">
-    </a>
-    
+  <div class="container">
+    <span class="text-container" id="textContainer">B A N A N A S</span>
+  </div>
+
+  <script>
+    const textContainer = document.getElementById('textContainer');
+
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+
+      // Get the bounding box of the text container
+      const rect = textContainer.getBoundingClientRect();
+
+      // Generate a random position within the text container
+      const x = Math.random() * rect.width;
+      const y = Math.random() * rect.height;
+
+      // Position the sparkle relative to the text container
+      sparkle.style.left = `${x}px`;
+      sparkle.style.top = `${y}px`;
+
+      textContainer.appendChild(sparkle);
+
+      // Remove sparkle after animation ends
+      sparkle.addEventListener('animationend', () => sparkle.remove());
+    }
+
+    // Generate sparkles at intervals
+    setInterval(createSparkle, 1500); // Adjust interval for more or fewer sparkles
+  </script>
+
 </body>
 </html>
