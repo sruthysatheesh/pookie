@@ -9,12 +9,12 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles2.css" />
   </head>
   <body>
     <section class="hero">
-      <h1 class="hubble">BANANAS</h1>
-      <p class="desc">30 Years of Discovery</h2>
+      <h1 class="hubble text-container " id="textContainer">BANANAS</h1>
+      <p class="tagline">© sungay3 ©</h2>
     </section>
   <div class="images">
     <img src="hi.jpg" alt="">
@@ -28,5 +28,33 @@
     <img src="hi.jpg" alt="">
     <img src="hi.jpg" alt="">
   </div>
+
+  <script>
+      const textContainer = document.getElementById("textContainer");
+
+      function createSparkle() {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+
+        // Get the bounding box of the text container
+        const rect = textContainer.getBoundingClientRect();
+
+        // Generate a random position within the text container
+        const x = Math.random() * rect.width;
+        const y = Math.random() * rect.height;
+
+        // Position the sparkle relative to the text container
+        sparkle.style.left = `${x}px`;
+        sparkle.style.top = `${y}px`;
+
+        textContainer.appendChild(sparkle);
+
+        // Remove sparkle after animation ends
+        sparkle.addEventListener("animationend", () => sparkle.remove());
+      }
+
+      // Generate sparkles at intervals
+      setInterval(createSparkle, 1500); // Adjust interval for more or fewer sparkles
+    </script>
   </body>
 </html>
