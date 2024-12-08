@@ -1,0 +1,129 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  max-width: 100vw;
+}
+/* HERO */
+h1 {
+  font-weight: 900;
+  font-size: 5rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000;
+  word-spacing: 1.5rem;
+}
+
+.hero {
+  align-items: center;
+  /* I've specified the reptition of the background (no-repeat) as part of setting the background. */
+  background: url(kiss.gif) no-repeat;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.hero .tagline {
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 1.5px;
+  padding: 1.5rem;
+}
+
+/* IMAGES */
+
+.images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  margin: 100px auto;
+}
+
+/* sparkless */
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.text-container {
+  margin-bottom: 0;
+  font-size: 120px;
+  font-weight: bold;
+  color: #ffc908;
+  text-align: center;
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden;
+  display: inline-block;
+  animation: typing 6s steps(20, end), blink 0.5s step-end infinite alternate;
+  position: relative; /* Necessary to position sparkles relative to this */
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 30%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  transform: rotate(45deg);
+  animation: sparkle-animation 1.5s ease-out infinite;
+}
+
+.sparkle::before,
+.sparkle::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #ffd700; /* Golden star color */
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.sparkle::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+@keyframes sparkle-animation {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(
+        calc(-20px + 40px * random()),
+        calc(-20px + 40px * random())
+      )
+      scale(1.5);
+  }
+}
