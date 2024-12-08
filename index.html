@@ -3,30 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hero</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <title>Letter-by-Letter Animation with Star Sparkles</title>
+    <style>
+      .container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .text-container {
+        font-size: 40px;
+        font-weight: bold;
+        color: #ffc908;
+        text-align: center;
+        white-space: nowrap; /* Prevent wrapping */
+        overflow: hidden;
+        display: inline-block;
+        animation: typing 6s steps(20, end),
+          blink 0.5s step-end infinite alternate;
+        position: relative; /* Necessary to position sparkles relative to this */
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 30%;
+        }
+      }
+
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      .sparkle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: transparent;
+        transform: rotate(45deg);
+        animation: sparkle-animation 1.5s ease-out infinite;
+      }
+
+      .sparkle::before,
+      .sparkle::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: #ffd700; /* Golden star color */
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      .sparkle::after {
+        transform: translateY(-50%) rotate(90deg);
+      }
+
+      @keyframes sparkle-animation {
+        from {
+          opacity: 1;
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: translate(
+              calc(-20px + 40px * random()),
+              calc(-20px + 40px * random())
+            )
+            scale(1.5);
+        }
+      }
+    </style>
   </head>
-  <body>
-    <section class="hero">
-      <h1 class="hubble">BANANAS</h1>
-      <p class="desc">30 Years of Discovery</h2>
-    </section>
-  <div class="images">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-    <img src="hi.jpg" alt="">
-  </div>
+  <body style="background-color: #252422; color: white; text-align: center">
+    <div class="container">
+      <span class="text-container" id="textContainer">B A N A N A S</span>
+    </div>
+
+    <script>
+      const textContainer = document.getElementById("textContainer");
+
+      function createSparkle() {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+
+        // Get the bounding box of the text container
+        const rect = textContainer.getBoundingClientRect();
+
+        // Generate a random position within the text container
+        const x = Math.random() * rect.width;
+        const y = Math.random() * rect.height;
+
+        // Position the sparkle relative to the text container
+        sparkle.style.left = `${x}px`;
+        sparkle.style.top = `${y}px`;
+
+        textContainer.appendChild(sparkle);
+
+        // Remove sparkle after animation ends
+        sparkle.addEventListener("animationend", () => sparkle.remove());
+      }
+
+      // Generate sparkles at intervals
+      setInterval(createSparkle, 1500); // Adjust interval for more or fewer sparkles
+    </script>
   </body>
 </html>
