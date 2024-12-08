@@ -27,6 +27,7 @@ h1 {
   justify-content: center;
   padding: 1rem;
   text-align: center;
+  position: relative;
 }
 
 .hero .tagline {
@@ -48,4 +49,81 @@ img {
   width: 200px;
   height: 200px;
   margin: 100px auto;
+}
+
+/* sparkless */
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.text-container {
+  margin-bottom: 0;
+  font-size: 120px;
+  font-weight: bold;
+  color: #ffc908;
+  text-align: center;
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden;
+  display: inline-block;
+  animation: typing 6s steps(20, end), blink 0.5s step-end infinite alternate;
+  position: relative; /* Necessary to position sparkles relative to this */
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 30%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  transform: rotate(45deg);
+  animation: sparkle-animation 1.5s ease-out infinite;
+}
+
+.sparkle::before,
+.sparkle::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #ffd700; /* Golden star color */
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.sparkle::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+@keyframes sparkle-animation {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(
+        calc(-20px + 40px * random()),
+        calc(-20px + 40px * random())
+      )
+      scale(1.5);
+  }
 }
